@@ -42,13 +42,12 @@ class LoginService {
   }){
     const URL = `${BASE_URL}${CONTACTS}?userId=${contactsData.id}`;
     try {
-      const response = await fetch("http://localhost:3001/660/contacts?userId=2", {
+      const response = await fetch(URL, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
           'Authorization': `Bearer ${contactsData.token}`,
         },
       });
-      // console.log(response);
 
       if (!response.ok) {
         throw new Error(
@@ -56,7 +55,6 @@ class LoginService {
         );
       }
       const body = await response.json();
-      // console.log(body[0]);
       return body[0];
     } catch (err: any) {
       if (err.name === "AbortError") {

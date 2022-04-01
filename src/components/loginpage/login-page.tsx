@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-// import { useAppDispatch } from '../../app/hooks';
+import loginStyles from './login.module.scss';
 
 import {
   login,
@@ -14,9 +14,8 @@ export default function LoginPage() {
   const isLogedIng = useAppSelector((state) => state.handleLogin.isLogedIng);
   const pending = useAppSelector((state) => state.handleLogin.pending);
   const isLoginButtonClicked = useAppSelector((state) => state.handleLogin.isLoginButtonClicked);
+  const userName = useAppSelector((state) => state.handleLogin.user?.email);
 
-  console.log(isLogedIng);
-  console.log(pending);
 
   const onFinish = (values: {
     password: string,
@@ -32,12 +31,10 @@ export default function LoginPage() {
 
   const loginButton  = pending ? 
   <Button loading type="primary" htmlType="submit" onSubmit={() => dispatch(logout())}>pending</Button> :
-  // isLogedIng ? 
   <Button type="primary" htmlType="submit" onSubmit={() => dispatch(logout())}>login</Button>;
-  // <Button type="primary" htmlType="submit" onSubmit={() => dispatch(loginUser("TTT"))}>login</Button>;
 
   const pageContent = isLogedIng ? 
-  <div>Welcome to us</div> :
+  <div className={loginStyles["notifications-general"]}>Welcome {userName}</div> :
   isLoginButtonClicked ?
   <div>
       <Form
@@ -74,7 +71,7 @@ export default function LoginPage() {
       </Form.Item>
     </Form>
     </div> :
-    <div>Please log in</div>;
+    <div className={loginStyles["notifications-general"]}>Please log in</div>;
 
 
   return (

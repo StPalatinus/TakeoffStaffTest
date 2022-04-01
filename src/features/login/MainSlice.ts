@@ -1,14 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loginToServer, fetchContacts } from "../../services/primaryService";
-// import
-// import { fetchCount } from './counterAPI';
 
 export interface MainState {
   pending: boolean;
   isLogedIng: boolean;
   isLoginButtonClicked: boolean;
-  // response: any;
   accessToken: string | null;
   user: {
     email: string | null,
@@ -22,7 +18,6 @@ const initialState: MainState = {
   pending: false,
   isLogedIng: false,
   isLoginButtonClicked: false,
-  // response: null,
   accessToken: null,
   user: null,
   contactsList: null,
@@ -58,10 +53,12 @@ export const loginSlice = createSlice({
     logout: (state) => {
       state.accessToken = null;
       state.user = null;
+      state.contactsList =  null;
       state.isLogedIng = false;
+      state.isLoginButtonClicked = false;
     },
-    toggleLoginFormVision: (state) => {
-      state.isLoginButtonClicked = !state.isLoginButtonClicked;
+    toggleLoginFormToLogout: (state) => {
+      state.isLoginButtonClicked = true;
     },
   },
   extraReducers: (builder) => {
@@ -92,6 +89,6 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { logout, toggleLoginFormVision } = loginSlice.actions;
+export const { logout, toggleLoginFormToLogout } = loginSlice.actions;
 
 export default loginSlice.reducer;

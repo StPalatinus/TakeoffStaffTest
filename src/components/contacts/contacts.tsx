@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react';
 import { useAppSelector,useAppDispatch } from '../../app/hooks';
 import { v4 as uuidv4 } from "uuid";
-// import { useAppDispatch } from '../../app/hooks';
+import contactsStyle from './contacts.module.scss';
 
 import {
   getContacts,
 } from "../../features/login/MainSlice";
 
-import { Form, Input, Button, Checkbox } from 'antd';
-
 export default function Contacts() {
   const dispatch = useAppDispatch();
 
-  // const user = useAppSelector((state) => state.handleLogin.user);
   const accessToken = useAppSelector((state) => state.handleLogin.accessToken);
   const userId = useAppSelector((state) => state.handleLogin.user?.id);
   const contactsList = useAppSelector((state) => state.handleLogin.contactsList);
-  // console.log(user);
-  // console.log(accessToken);
-  // console.log(stateCopy);
 
   let renderedContacts;
 
@@ -31,17 +25,18 @@ export default function Contacts() {
         token: accessToken,
       }));
     }
-  }, [accessToken, userId]);
+  }, [accessToken, userId, dispatch]);
   
   renderedContacts = contactsList ?
   contactsList.map((currentContact) => {
     return (
       <div 
-      // className={ticketsFoundStyles.tickets__ticket} 
-      key={uuidv4()}>{currentContact}</div>
+      className={contactsStyle.contact}
+      key={uuidv4()}>{currentContact}
+      </div>
     );
   }):
-  <div>your contacts will be here</div>;
+  <div className={contactsStyle["notifications-general"]}>your contacts will be here</div>;
 
   return (
     <React.Fragment>

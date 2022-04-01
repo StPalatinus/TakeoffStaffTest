@@ -3,7 +3,8 @@
     {
       "email": "olivier@mail.com",
       "password": "$2a$10$2nX6ADET52B/SGaGsglTreVemr6QI0X3aOOUgXTpE34/0gdKYKYGm",
-      "id": 1
+      "id": 1,
+      "userId": 1
     },
     {
       "email": "adminmail@admin.adm",
@@ -35,15 +36,13 @@
       "userId": 1,
       "contactsList": [
         "adminmail@admin.adm",
-        "adminmail@admin.adm",
-        "user1@user.ru",
-        "user2@user.ru",
-        "user3@user.ru"
+        "adminmail@admin.adm"
       ]
     },
     {
       "userId": 2,
       "contactsList": [
+        "adminmail@admin.adm",
         "adminmail@admin.adm",
         "user1@user.ru",
         "user2@user.ru",

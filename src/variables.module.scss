@@ -1,54 +1,13 @@
-$GENERAL_THEME_COLOR: #e5e5e5;
-$ARTICLES_GENERAL_BACKGROUND_COLOR: #fff;
-$HEDING_BUTTONS_ACTION_COLOR: #52c41a;
-$ARTICLE_TAGS_TEXT_DEFAULT_COLOR: rgba(0, 0, 0, 0.5);
-$ARTICLE_TAGS_BORDED_DEFAULT_COLOR: rgba(0, 0, 0, 0.5);
-$GENRAL_HEADER_COLOR: #000;
+.nav {
+    padding-left: 50px;
+};
 
-@font-face {
-  font-family: Inter;
-  src: url(./Fonts/Inter/static/Inter-Regular.ttf);
-}
+.nav-link {
+    list-style-type:none;
+    padding-left: 0;
+};
 
-$DEFAULT_FONT: Inter, Arial, Helvetica, sans-serif;
-
-@mixin paginationDefaultStyle {
-  // font-size: 150px;
-}
-
-@mixin tagDefaultStyle {
-  display: inline-block;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 15px;
-  padding: 2px;
-  box-sizing: border-box;
-  color: $ARTICLE_TAGS_TEXT_DEFAULT_COLOR;
-  margin-right: 8px;
-}
-
-@mixin buttonDefaultStyle {
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  user-select: none;
-  text-align: center;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-
-  &:active {
-    border-style: solid;
-    color: $HEDING_BUTTONS_ACTION_COLOR;
-    border-color: $HEDING_BUTTONS_ACTION_COLOR;
-  }
-  &:hover {
-    border-style: solid;
-    border-color: $HEDING_BUTTONS_ACTION_COLOR;
-  }
-}
-
-@mixin errorDefaultStyle {
-  color: crimson;
-}
+.notifications-general {
+    text-align: center;
+    font-size: 1.2em;
+};

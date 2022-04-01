@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import { useAppSelector } from './app/hooks';
+import appStyles from './index.module.scss';
 
 import {
-  // login,
   logout,
-  toggleLoginFormVision,
+  toggleLoginFormToLogout,
 } from "./features/login/MainSlice";
 
 
@@ -24,18 +24,22 @@ function App() {
   const isLogedIng = useAppSelector((state) => state.handleLogin.isLogedIng);
   
   const loginButton  =  isLogedIng ? 
-  <Button onClick={() => dispatch(logout())}>logout</Button> :
-  <Button onClick={() => dispatch(toggleLoginFormVision())}>login</Button>;
+  <Link to="/home">
+    <Button onClick={() => dispatch(logout())}>logout</Button> 
+  </Link>:
+  <Link to="/home">
+    <Button onClick={() => dispatch(toggleLoginFormToLogout())}>login</Button>
+  </Link>;
 
   return (
     <Layout>
       <Header>
-      <Link to="/home">{loginButton}</Link>
+        {loginButton}
       </Header>
       <Layout>
-        <Sider>
+        <Sider className={appStyles.nav}>
         <nav>
-        <ul>
+        <ul className={appStyles["nav-link"]}>
           <li>
           <Link to="/home"><Button>Home</Button></Link>
           </li>
@@ -45,7 +49,7 @@ function App() {
         </ul>
       </nav>
         </Sider>
-        <Content>
+        <Content className={appStyles.content}>
         <Routes>
         <Route
           path="/home"
