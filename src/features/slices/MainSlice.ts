@@ -11,7 +11,11 @@ export interface MainState {
     id: number | null,
     userId: number | null,
   } | null;
-    contactsList: string[] | null;
+  viewedСontacts: {
+    userId: number | null,
+    contactsList: string[] | null,
+    statusList: boolean[] | null,
+  };
 }
 
 const initialState: MainState = {
@@ -20,7 +24,11 @@ const initialState: MainState = {
   isLoginButtonClicked: false,
   accessToken: null,
   user: null,
-  contactsList: null,
+  viewedСontacts: {
+    userId:  null,
+    contactsList: null,
+    statusList: null,
+  },
 };
 
 export const login = createAsyncThunk(
@@ -53,13 +61,33 @@ export const loginSlice = createSlice({
     logout: (state) => {
       state.accessToken = null;
       state.user = null;
-      state.contactsList =  null;
+      state.viewedСontacts =  {
+        userId:  null,
+        contactsList: null,
+        statusList: null,
+      };
       state.isLogedIng = false;
       state.isLoginButtonClicked = false;
     },
     toggleLoginFormToLogout: (state) => {
       state.isLoginButtonClicked = true;
     },
+    toggleEditStatus: (state, data) => {
+      // console.log(data);
+      // console.log(state.viewedСontacts.contactsList?.[data.payload]);
+      if (state.viewedСontacts.statusList) {
+      state.viewedСontacts.statusList[data.payload] = !state.viewedСontacts.statusList[data.payload]
+      } else return state;
+    },
+    editContact: (state, data) => {
+      console.log(data.payload);
+      console.log(state.viewedСontacts.contactsList?.[data.payload.serialNumber]);
+      console.log(data.payload.newContact);
+
+      if (state.viewedСontacts.contactsList) {
+        state.viewedСontacts.contactsList[data.payload.serialNumber] = data.payload.newContact;
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -80,7 +108,9 @@ export const loginSlice = createSlice({
         state.pending = true;
       })
       .addCase(getContacts.fulfilled, (state, action) => {
-        state.contactsList =  action.payload.contactsList;
+        state.viewedСontacts.contactsList = action.payload.contactsList;
+        state.viewedСontacts.statusList = new Array(action.payload.contactsList.length).fill(false);
+        state.viewedСontacts.userId = action.payload.userId;
         state.pending = false;
       })
       .addCase(getContacts.rejected, (state, action) => {
@@ -89,6 +119,11 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { logout, toggleLoginFormToLogout } = loginSlice.actions;
+export const { 
+  logout, 
+  toggleLoginFormToLogout, 
+  toggleEditStatus, 
+  editContact 
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -3,46 +3,41 @@
     {
       "email": "olivier@mail.com",
       "password": "$2a$10$2nX6ADET52B/SGaGsglTreVemr6QI0X3aOOUgXTpE34/0gdKYKYGm",
-      "id": 1,
-      "userId": 1
+      "id": 1
     },
     {
       "email": "adminmail@admin.adm",
       "password": "$2a$10$NALOrZj7kLMN0iiOkptke.Ta5K1onY.HN617OsufOKIusxbEqkQVu",
-      "id": 2,
-      "userId": 2
+      "id": 2
     },
     {
       "email": "user1@user.ru",
       "password": "$2a$10$PoeVxubn5l7zpIyBY15c0OW5QRU3ViRTWaxJJAOjzjo1ta9vEDScu",
-      "id": 3,
-      "userId": 3
+      "id": 3
     },
     {
       "email": "user2@user.ru",
       "password": "$2a$10$Xj6.O/i48ra7BNUqAqBWneSICvPkOwbU7RQRtiYgMeP4utWlNKuFG",
-      "id": 4,
-      "userId": 4
+      "id": 4
     },
     {
       "email": "user3@user.ru",
       "password": "$2a$10$bKtk9uvR0GjxBuyFRGeCT.wf3NUv8V6.rds20zJBgNkTXulGe4i5m",
-      "id": 5,
-      "userId": 5
+      "id": 5
     }
   ],
   "contacts": [
     {
       "userId": 1,
       "contactsList": [
-        "adminmail@admin.adm",
+        "olivier@mail.com",
         "adminmail@admin.adm"
       ]
     },
     {
       "userId": 2,
       "contactsList": [
-        "adminmail@admin.adm",
+        "olivier@mail.com",
         "adminmail@admin.adm",
         "user1@user.ru",
         "user2@user.ru",
@@ -52,7 +47,7 @@
     {
       "userId": 3,
       "contactsList": [
-        "adminmail@admin.adm",
+        "olivier@mail.com",
         "adminmail@admin.adm",
         "user3@user.ru"
       ]

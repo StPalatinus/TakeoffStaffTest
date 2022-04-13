@@ -5,7 +5,7 @@ import loginStyles from './login.module.scss';
 import {
   login,
   logout,
-} from "../../features/login/MainSlice";
+} from "../../features/slices/MainSlice";
 
 import { Form, Input, Button, Checkbox } from 'antd';
 

@@ -6,7 +6,7 @@ import appStyles from './index.module.scss';
 import {
   logout,
   toggleLoginFormToLogout,
-} from "./features/login/MainSlice";
+} from "./features/slices/MainSlice";
 
 
 import LoginPage from './components/loginpage/login-page';
