@@ -6,7 +6,6 @@ import Contact from "./contact/contact";
 
 import {
   getContacts,
-  editContact,
 } from "../../features/slices/MainSlice";
 
 export default function Contacts() {
@@ -15,10 +14,11 @@ export default function Contacts() {
   const accessToken = useAppSelector((state) => state.handleLogin.accessToken);
   const userId = useAppSelector((state) => state.handleLogin.user?.id);
   const viewedСontacts = useAppSelector((state) => state.handleLogin.viewedСontacts);
-  const statusList = useAppSelector((state) => state.handleLogin.viewedСontacts.statusList)
+  const statusList = useAppSelector((state) => state.handleLogin.viewedСontacts.statusList);
+  const isLoggedIn = useAppSelector((state) => state.handleLogin.isLogedIng)
 
   // const showState = useAppSelector((state) => state);
-  // console.log(showState);
+  // console.log(showState)
 
   useEffect(() => {
     if (userId &&
@@ -29,34 +29,20 @@ export default function Contacts() {
       }));
     }
   }, [accessToken, userId, dispatch]);
-
+  
+  let onPageContactsCount = 0;
   let renderedContacts = viewedСontacts ?
   viewedСontacts.contactsList?.map((currentContact, i) => {
-    
+    onPageContactsCount += 1;
     if (i + 1 === viewedСontacts.contactsList?.length) {
       return (
         <React.Fragment key={uuidv4()}>
           <Contact
+          key={uuidv4()}
           serialNumber = { i }
           currentContact = { currentContact }
           editStatus = {statusList?.[i]}
-          // editContact={() => {
-          //   dispatch(editContact({
-          //     contactNum: i,
-          //     newContact: "zzz"
-          //   }));
-          // }}
-          ></Contact>
-          <Contact
-          serialNumber = { i + 1 }
-          currentContact = { `add new contact` }
-          editStatus = {statusList?.[i + 1]}
-          // editContact={() => {
-          //   dispatch(editContact({
-          //     contactNum: i,
-          //     newContact: "zzz"
-          //   }));
-          // }}
+          isLast = {false}
           ></Contact>
         </React.Fragment>
       );
@@ -67,20 +53,25 @@ export default function Contacts() {
         serialNumber = { i }
         currentContact = { currentContact }
         editStatus = {statusList?.[i]}
-        // editContact={() => {
-        //   dispatch(editContact({
-        //     contactNum: i,
-        //     newContact: "zzz"
-        //   }));
-        // }}
+        isLast = {false}
       ></Contact>
     );
   }):
   <div className={contactsStyle["notifications-general"]}>your contacts will be here</div>;
-
+  
   return (
     <React.Fragment>
       { renderedContacts }
+      {isLoggedIn ? 
+      <Contact
+      key={uuidv4()}
+      serialNumber = { onPageContactsCount }
+      currentContact = { "add new contact" }
+      editStatus = {statusList?.[onPageContactsCount]}
+      isLast = {true}
+      ></Contact> :
+      null}
+      
     </React.Fragment>
   );
 }

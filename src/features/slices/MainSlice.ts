@@ -73,19 +73,20 @@ export const loginSlice = createSlice({
       state.isLoginButtonClicked = true;
     },
     toggleEditStatus: (state, data) => {
-      // console.log(data);
-      // console.log(state.viewedСontacts.contactsList?.[data.payload]);
       if (state.viewedСontacts.statusList) {
       state.viewedСontacts.statusList[data.payload] = !state.viewedСontacts.statusList[data.payload]
       } else return state;
     },
     editContact: (state, data) => {
-      console.log(data.payload);
-      console.log(state.viewedСontacts.contactsList?.[data.payload.serialNumber]);
-      console.log(data.payload.newContact);
-
       if (state.viewedСontacts.contactsList) {
         state.viewedСontacts.contactsList[data.payload.serialNumber] = data.payload.newContact;
+      }
+    },
+    removeContact: (state, data) => {
+      if (state.viewedСontacts.contactsList) {
+        state.viewedСontacts.contactsList.splice(data.payload, 1);
+        // console.log(state.viewedСontacts.contactsList.splice(data.payload, 1));
+        // state.viewedСontacts.contactsList[data.payload.serialNumber] = data.payload.newContact;
       }
     }
   },
@@ -123,7 +124,8 @@ export const {
   logout, 
   toggleLoginFormToLogout, 
   toggleEditStatus, 
-  editContact 
+  editContact,
+  removeContact
 } = loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -1,6 +1,7 @@
 @import '../../variables.module.scss';
 
 .contact {
+    position: relative;
     display: inline-block;
     width: calc(50% - 5px) !important;
     height: 26px;
@@ -8,8 +9,22 @@
     box-sizing: border-box;
     border: 1px solid black;
     margin: 0 1px 2px;
+    &:hover{
+        .remove-button{
+            display: block !important;
+        }
+    }
 };
 
-// .ant-inpu {
-//     width: calc(50% - 5px);
-// }
+.remove-button {
+    position: absolute !important;
+    right: 0;
+    top: -4px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    &:hover {
+        display: block;
+        background-color: transparent !important;
+    }
+}
