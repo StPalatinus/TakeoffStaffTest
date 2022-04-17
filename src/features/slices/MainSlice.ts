@@ -98,8 +98,6 @@ export const loginSlice = createSlice({
     removeContact: (state, data) => {
       if (state.viewedСontacts.contactsList) {
         state.viewedСontacts.contactsList.splice(data.payload, 1);
-        // console.log(state.viewedСontacts.contactsList.splice(data.payload, 1));
-        // state.viewedСontacts.contactsList[data.payload.serialNumber] = data.payload.newContact;
       }
     }
   },

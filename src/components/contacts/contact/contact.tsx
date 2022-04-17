@@ -6,8 +6,8 @@ import { Input, InputRef, Button } from 'antd';
 
 import {
   toggleEditStatus,
-  editContact,
   removeContact,
+  editContact,
   modifyContacts,
 } from "../../../features/slices/MainSlice";
 
@@ -31,7 +31,6 @@ export default function Contact(props: {
     else if (evt.target.value.trim() !== "" && 
     userId && 
     accessToken && 
-    // serialNumber && 
     currentContacts
     ) {
       dispatch(toggleEditStatus(serialNumber));
@@ -41,6 +40,25 @@ export default function Contact(props: {
       }));
       let newContacts = [...currentContacts];
       newContacts[serialNumber] = evt.target.value;
+      dispatch(modifyContacts({
+        id: userId,
+        token: accessToken,
+        serialNumber,
+        newContacts,
+      }));
+    }
+  }
+
+  const handleContactDelete = () => {
+    dispatch(removeContact(serialNumber));
+    if ( 
+    userId && 
+    accessToken && 
+    currentContacts
+    ) {
+      dispatch(toggleEditStatus(serialNumber));
+      let newContacts = [...currentContacts];
+      newContacts.splice(serialNumber, 1);
       dispatch(modifyContacts({
         id: userId,
         token: accessToken,
@@ -62,12 +80,9 @@ export default function Contact(props: {
   const renderContactFields =(serial: number | undefined, fieldIsLast: boolean, contact: typeof currentContact) => {
     let withLastCalled = false;
     const renderContactField = (serial: number | undefined, fieldIsLast: boolean, contact: typeof currentContact): JSX.Element => {
-      // console.log(`fieldIsLast: ${fieldIsLast}`);
-      // console.log(`withLastCalled ${withLastCalled}`);
       
       if(fieldIsLast && !withLastCalled) {
         withLastCalled = true;
-        // renderContactField(serial + 1, fieldIsLast, "add new contact");
         return (
           <div 
             className={contactsStyle.contact}
@@ -79,21 +94,18 @@ export default function Contact(props: {
           </div>
         )
       }
-      // console.log("contact rendered");
       return (
         <div 
           className={contactsStyle.contact}
           key={uuidv4()}
-          onClick={() => {
+          onClick={(evt) => {
+            evt.stopPropagation();
             dispatch(toggleEditStatus(serial));
           }}
         > {contact}
             <Button 
             className={contactsStyle["remove-button"]} 
-            onClick={(evt: React.BaseSyntheticEvent) => {
-              evt.stopPropagation();
-              dispatch(removeContact(serial))
-            }}
+            onClick={handleContactDelete}
             >
               &#10006;
             </Button>
@@ -113,24 +125,7 @@ export default function Contact(props: {
     onPressEnter={handleFormSubmit} 
     onBlur={handleFormSubmit} 
     ref={inputRef}></Input> :
-    renderContactFields(serialNumber, isLast, currentContact);
-  // <React.Fragment>
-  // <div 
-  //   className={contactsStyle.contact}
-  //   key={uuidv4()}
-  //   onClick={() => {
-  //     dispatch(toggleEditStatus(serialNumber));
-  //   }}
-  // > {currentContact}
-  //     <Button 
-  //     className={contactsStyle["remove-button"]} 
-  //     onClick={() => {dispatch(removeContact(serialNumber))}}
-  //     >
-  //       &#10006;
-  //     </Button>
-  // </div>
-  // </React.Fragment>;
-  
+    renderContactFields(serialNumber, isLast, currentContact);  
 
     return (
       <React.Fragment>

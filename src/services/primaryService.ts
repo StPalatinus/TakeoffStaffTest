@@ -47,7 +47,6 @@ class LoginService {
           'Content-Type': 'application/json;charset=utf-8',
           'Authorization': `Bearer ${contactsData.token}`,
         },
-        // body: {}
       });
 
       if (!response.ok) {

@@ -17,9 +17,6 @@ export default function Contacts() {
   const statusList = useAppSelector((state) => state.handleLogin.viewedСontacts.statusList);
   const isLoggedIn = useAppSelector((state) => state.handleLogin.isLogedIng)
 
-  // const showState = useAppSelector((state) => state);
-  // console.log(showState)
-
   useEffect(() => {
     if (userId &&
       accessToken) {
