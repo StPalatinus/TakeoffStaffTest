@@ -7,29 +7,46 @@ import { Input, InputRef, Button } from 'antd';
 import {
   toggleEditStatus,
   editContact,
-  removeContact
+  removeContact,
+  modifyContacts,
 } from "../../../features/slices/MainSlice";
-// import { TypeOfTag } from 'typescript';
 
 
 export default function Contact(props: {
-  serialNumber: number | undefined,
-  currentContact: any,
+  serialNumber: number,
+  currentContact: string,
   editStatus: boolean | undefined,
   isLast: boolean,
 }) {
   const dispatch = useAppDispatch();
 
+  const accessToken = useAppSelector((state) => state.handleLogin.accessToken);
+  const userId = useAppSelector((state) => state.handleLogin.user?.id);
+  const currentContacts = useAppSelector((state) => state.handleLogin.viewedСontacts.contactsList);
+
   const handleFormSubmit = (evt: React.BaseSyntheticEvent) => {
     if (evt.target.value.trim() === "add new contact") {
       dispatch(toggleEditStatus(serialNumber));
     }
-    else if (evt.target.value.trim() !== "") {
+    else if (evt.target.value.trim() !== "" && 
+    userId && 
+    accessToken && 
+    // serialNumber && 
+    currentContacts
+    ) {
+      dispatch(toggleEditStatus(serialNumber));
       dispatch(editContact({
         serialNumber,
         newContact: evt.target.value,
       }));
-      dispatch(toggleEditStatus(serialNumber));
+      let newContacts = [...currentContacts];
+      newContacts[serialNumber] = evt.target.value;
+      dispatch(modifyContacts({
+        id: userId,
+        token: accessToken,
+        serialNumber,
+        newContacts,
+      }));
     }
   }
 
@@ -42,15 +59,15 @@ export default function Contact(props: {
     }
   }, []);
 
-  const generateContactFields =(serial: number | undefined, fieldIsLast: boolean, contact: typeof currentContact) => {
+  const renderContactFields =(serial: number | undefined, fieldIsLast: boolean, contact: typeof currentContact) => {
     let withLastCalled = false;
-    const generateContactField = (serial: number | undefined, fieldIsLast: boolean, contact: typeof currentContact): JSX.Element => {
+    const renderContactField = (serial: number | undefined, fieldIsLast: boolean, contact: typeof currentContact): JSX.Element => {
       // console.log(`fieldIsLast: ${fieldIsLast}`);
       // console.log(`withLastCalled ${withLastCalled}`);
       
       if(fieldIsLast && !withLastCalled) {
         withLastCalled = true;
-        // generateContactField(serial + 1, fieldIsLast, "add new contact");
+        // renderContactField(serial + 1, fieldIsLast, "add new contact");
         return (
           <div 
             className={contactsStyle.contact}
@@ -83,7 +100,7 @@ export default function Contact(props: {
         </div>
       )
     }
-    return generateContactField(serial, fieldIsLast, contact);
+    return renderContactField(serial, fieldIsLast, contact);
   }
 
   const { serialNumber, currentContact, editStatus, isLast } =  props;
@@ -96,7 +113,7 @@ export default function Contact(props: {
     onPressEnter={handleFormSubmit} 
     onBlur={handleFormSubmit} 
     ref={inputRef}></Input> :
-    generateContactFields(serialNumber, isLast, currentContact);
+    renderContactFields(serialNumber, isLast, currentContact);
   // <React.Fragment>
   // <div 
   //   className={contactsStyle.contact}

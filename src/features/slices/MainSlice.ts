@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loginToServer, fetchContacts } from "../../services/primaryService";
+import { loginToServer, fetchGetContacts, fetchModifyContacts } from "../../services/primaryService";
 
 export interface MainState {
   pending: boolean;
@@ -49,7 +49,20 @@ export const getContacts = createAsyncThunk(
     id: number,
     token: string,
   }) => {
-    const response = await fetchContacts(contactsData);
+    const response = await fetchGetContacts(contactsData);
+    return response;
+  }
+);
+
+export const modifyContacts = createAsyncThunk(
+  'modifyUsersContacts',
+  async (newContactData: {
+    id: number,
+    token: string,
+    serialNumber: number,
+    newContacts: string[],
+  }) => {
+    const response = await fetchModifyContacts(newContactData);
     return response;
   }
 );

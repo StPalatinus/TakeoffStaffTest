@@ -1,4 +1,5 @@
 {
-    "/users": "/660/users",
-    "/contacts": "/660/contacts"
+    "/users": "/644/users",
+    "/contacts": "/640/contacts",
+    "/contacts/:userId": "/640/contacts?userId=:userId"
 }
